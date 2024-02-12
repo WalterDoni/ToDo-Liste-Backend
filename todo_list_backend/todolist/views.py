@@ -17,7 +17,7 @@ class TodoItemView(APIView):
     permission_classes = [IsAuthenticated]
     
     def get(self, request, format=None):
-        todos = TodoItem.objects.all()
+        todos = TodoItem.objects.filter(author=request.user)
         serializers = TodoItemSerializer(todos, many=True)
         return Response(serializers.data)
     
